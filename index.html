@@ -32,6 +32,25 @@ tw-link
 {
   color: white;
   text-decoration:none;
+}
+/* === Animated text === */
+.animated-text span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideIn 0.35s ease forwards;
+  font-weight: 700;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript">/**
  * Harlowe Audio Library (HAL), by Chapel, v2.3.0
  * for Harlowe 2.1.0 and higher
@@ -41,11 +60,12 @@ tw-link
 /** End of HAL code */
 
 </script><tw-tag name="startup" color="green"></tw-tag><tw-passagedata pid="1" name="Prologue_WeepingStones" tags="" position="475,75" size="100,100">&lt;img src =&quot;1.png&quot; width=&quot;350&quot; height=&quot;350&quot;&gt;
-The wind never truly slept in Aerilon.
-
-It prowled through the hollow ribs of Oakhaven, carrying with it the dust of a hundred lost years—powdered stone, ash, and the memory of lives that once mattered. The ruins groaned softly as the air moved through them, skeletal homes whispering secrets to no one who could listen anymore.
-
-This was the Year of Weeping Stones, an age named not by poets, but by survivors. The land itself seemed to mourn. Rain fell rarely, and when it did, it burned the skin and scarred the earth. Crops grew twisted and bitter. Hope was rationed more tightly than water.
+(transition:&quot;slide-right&quot;)[
+The wind never truly slept in Aerilon.]
+(after:0.5s)[(transition:&quot;slide-right&quot;)[
+It prowled through the hollow ribs of Oakhaven, carrying with it the dust of a hundred lost years—powdered stone, ash, and the memory of lives that once mattered. The ruins groaned softly as the air moved through them, skeletal homes whispering secrets to no one who could listen anymore.]]
+(after:1.0s)[(transition:&quot;slide-right&quot;)[
+This was the Year of Weeping Stones, an age named not by poets, but by survivors. The land itself seemed to mourn. Rain fell rarely, and when it did, it burned the skin and scarred the earth. Crops grew twisted and bitter. Hope was rationed more tightly than water.]]
 
 Here, children learned hunger before laughter. Fear before trust.
 

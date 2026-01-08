@@ -58,6 +58,7 @@ History repeats itself.
 
 
 :: Ending ReluctantAwakening {"position":"225,725","size":"100,100"}
+<img src ="4.gif" width="350" height="350">
 You press your hands against Kael’s chest.
 
 They are shaking.
@@ -146,11 +147,12 @@ And the world begins—slowly, painfully—to heal.
 
 :: Prologue_WeepingStones {"position":"475,75","size":"100,100"}
 <img src ="1.png" width="350" height="350">
-The wind never truly slept in Aerilon.
-
-It prowled through the hollow ribs of Oakhaven, carrying with it the dust of a hundred lost years—powdered stone, ash, and the memory of lives that once mattered. The ruins groaned softly as the air moved through them, skeletal homes whispering secrets to no one who could listen anymore.
-
-This was the Year of Weeping Stones, an age named not by poets, but by survivors. The land itself seemed to mourn. Rain fell rarely, and when it did, it burned the skin and scarred the earth. Crops grew twisted and bitter. Hope was rationed more tightly than water.
+(transition:"slide-right")[
+The wind never truly slept in Aerilon.]
+(after:0.5s)[(transition:"slide-right")[
+It prowled through the hollow ribs of Oakhaven, carrying with it the dust of a hundred lost years—powdered stone, ash, and the memory of lives that once mattered. The ruins groaned softly as the air moved through them, skeletal homes whispering secrets to no one who could listen anymore.]]
+(after:1.0s)[(transition:"slide-right")[
+This was the Year of Weeping Stones, an age named not by poets, but by survivors. The land itself seemed to mourn. Rain fell rarely, and when it did, it burned the skin and scarred the earth. Crops grew twisted and bitter. Hope was rationed more tightly than water.]]
 
 Here, children learned hunger before laughter. Fear before trust.
 
@@ -238,7 +240,7 @@ And Kael coughs in his sleep.
 {
 (track: 'wind-sound', 'play')
 }
-<img src ="2.png" width="350" height="350">
+<img src ="2.gif" width="350" height="350">
 
 Kael sleeps.
 
@@ -305,7 +307,7 @@ It was meant to remember.
 
 
 :: Suppression Crack {"position":"350,575","size":"100,100"}
-<img src ="4.png" width="350" height="350">
+<img src ="3.png" width="350" height="350">
 Your hands tremble.
 
 The hum surges, no longer gentle—angry now, starved. You realize too late that denying it has not weakened it. It has only made it unstable.
@@ -324,7 +326,7 @@ This ends now.
 
 
 :: Suppression SilentBoy {"position":"350,450","size":"100,100"}
-<img src ="3.png" width="350" height="350">
+<img src ="3b.gif" width="350" height="350">
 Kael grows weaker.
 
 The healer brings bitter brews and shrugs helplessly. “The sickness never truly left,” he mutters. “It’s only waiting.”
@@ -390,4 +392,23 @@ tw-link
 {
   color: white;
   text-decoration:none;
+}
+/* === Animated text === */
+.animated-text span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideIn 0.35s ease forwards;
+  font-weight: 700;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
