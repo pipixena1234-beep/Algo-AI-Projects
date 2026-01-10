@@ -390,13 +390,15 @@ footer {
 
   html, body {
     height: 100%;
+    font-size: 120%;
   }
 
   body {
     font-size: 18px;   /* base text size */
   }
   .container {
-       flex-direction: column;
+    flex-direction: column;
+    flex-wrap: nowrap;   /* 🔑 YOU MISSED THIS */
     align-items: stretch;
   }
 
