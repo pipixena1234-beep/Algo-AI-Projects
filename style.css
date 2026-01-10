@@ -6,13 +6,6 @@ body {
 
 /* Header */
 .hero {
-  width: 100vw; /* full width */
-  min-height: 22svh; /* small viewport height, works better on mobile portrait */
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
   text-align: center;
   padding: 24px;
   background: linear-gradient(135deg, #ffcc70, #ff9a9e);
@@ -82,34 +75,25 @@ body {
 }
 
 footer {
-  flex: 0 0 auto;
-  min-height: 10svh;              
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
+  text-align: center;
+  padding: 5px;
+  margin-top: 40px;
   background: #222;
   color: white;
   font-size: 14px;
 }
 
-
 /* Card title bounce */
 @keyframes titleBounce {
-
   0%   { transform: scale(1); }
-
   30%  { transform: scale(0.9); }
-
   60%  { transform: scale(1.2); }
-
   100% { transform: scale(1); }
 
 }
 
 .card-title-bounce {
   display: inline-block;
-
   animation: titleBounce 0.5s ease forwards;
 
 }
@@ -141,7 +125,6 @@ footer {
   75% { border-color: #facc15; }
   100% { border-color: #ff6ec4; }
   }
-
 
 .
     #ff6ec4
@@ -277,13 +260,7 @@ footer {
   .card p {
     font-size: 1.15rem;
   }
-  
-  .hero,
-  footer {
-    width: 100w;      /* full width on mobile */
-    max-width: 100%;
-    box-sizing: border-box;
-  }
 }
+
 
 
