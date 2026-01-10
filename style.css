@@ -382,28 +382,25 @@ footer {
     align-items: center;
     padding: 16px;
   }
-
   .card {
     width: 100%;      /* full width */
     max-width: 400px; /* don't stretch too much */
     min-height: 420px; /* taller for touch */
     font-size: 1.1rem;
   }
-
   .card h2 {
     font-size: 1.6rem;
   }
-
+  
   .card p {
     font-size: 1.15rem;
   }
-
+  
   .hero,
   footer {
     width: 100w;      /* full width on mobile */
     max-width: 100%;
-  padding-left: env(safe-area-inset-left, 16px);
-  padding-right: env(safe-area-inset-right, 16px);
     box-sizing: border-box;
   }
 }
+
