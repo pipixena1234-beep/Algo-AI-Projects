@@ -22,17 +22,11 @@ body {
 
 /* Shake + Flicker */
 @keyframes shake {
-
   0% { transform: translateX(0); }
-
   25% { transform: translateX(-4px); }
-
   50% { transform: translateX(4px); }
-
   75% { transform: translateX(-4px); }
-
   100% { transform: translateX(0); }
-
 }
 
 @keyframes flicker {
@@ -60,7 +54,6 @@ body {
     opacity: 1;
     transform: translateX(0);
   }
-
 }
 
 .floating-text {
@@ -261,6 +254,7 @@ footer {
     font-size: 1.15rem;
   }
 }
+
 
 
 
