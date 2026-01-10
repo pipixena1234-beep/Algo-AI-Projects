@@ -133,13 +133,9 @@ footer {
   100% { border-image-slice: 1 1 1 1 fill; }
 
 }
+
 .card {
-  width: 100%;              /* flexible */
-  max-width: 260px;         /* card width on desktop */
-  min-height: 360px;
-  margin: 0;                /* let flex handle spacing */
-  position: relative;
-  overflow: hidden;
+  width: 300px;             
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
@@ -255,6 +251,7 @@ footer {
     font-size: 1.15rem;
   }
 }
+
 
 
 
