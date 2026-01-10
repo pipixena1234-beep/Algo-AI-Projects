@@ -231,7 +231,6 @@ footer {
   body {
     font-size: 18px; /* bigger text */
   }
-
   .container {
     flex-direction: column; /* stack cards vertically */
     align-items: center;
@@ -240,17 +239,16 @@ footer {
   .card {
     width: 100%;      /* full width */
     max-width: 220px; /* don't stretch too much */
-    min-height: 420px; /* taller for touch */
     font-size: 1.1rem;
   }
   .card h2 {
     font-size: 1.6rem;
   }
-  
   .card p {
     font-size: 1.15rem;
   }
 }
+
 
 
 
