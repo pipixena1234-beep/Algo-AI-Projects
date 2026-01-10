@@ -391,6 +391,10 @@ footer {
   html, body {
     height: 100%;
     font-size: 120%;
+     width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
   }
 
   body {
@@ -422,6 +426,11 @@ footer {
   .card.active {
     transform: scale(1.05);
   }
+  .hero,
+footer {
+  width: 100vw;
+  max-width: 100%;
+}
 
 }
 
