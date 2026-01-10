@@ -387,8 +387,7 @@ footer {
   .hover-gif {
     opacity: 0.25;
   }
-}
-@media (max-width: 600px) {
+
   html, body {
     height: 100%;
   }
@@ -396,6 +395,32 @@ footer {
   body {
     display: flex;
     flex-direction: column;
+    font-size: 18px;   /* base text size */
   }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  .container {
+    padding: 16px;
+  }
+
+  .card {
+    max-width: 100%;     /* FULL width */
+    width: 100%;
+    min-height: 420px;   /* taller card for touch */
+    border-radius: 20px;
+  }
+
 }
+
 
