@@ -207,7 +207,8 @@ footer {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;       /* desktop: fill card */
+  height: 100%;      /* only partial card on mobile */
+  max-height: 300px; /* optional, to avoid huge images */
   object-fit: cover;
   opacity: 0;
   pointer-events: none;
@@ -247,11 +248,8 @@ footer {
   .card p {
     font-size: 1.15rem;
   }
-    .hover-gif {
-    height: 40%;      /* only partial card on mobile */
-    max-height: 200px; /* optional, to avoid huge images */
-  }
 }
+
 
 
 
