@@ -8,8 +8,9 @@ body {
 /* Header */
 
 .hero {
+  width: 100vw; /* full width */
+  min-height: 22svh; /* small viewport height, works better on mobile portrait */
   flex: 0 0 auto;
-  min-height: 22vh;              /* BIGGER header */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -113,7 +114,7 @@ body {
 
 footer {
   flex: 0 0 auto;
-  min-height: 10vh;              /* BIGGER footer */
+  min-height: 10svh;              
   display: flex;
   align-items: center;
   justify-content: center;
