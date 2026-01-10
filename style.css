@@ -23,14 +23,13 @@ body {
 /* Layout */
 
 .container {
-  display: grid;
-
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-
+  display: flex;
+  flex-wrap: wrap;          /* allow wrapping */
+  justify-content: center;  /* center cards */
   gap: 24px;
-
   padding: 24px;
 }
+
 
 
 /* Shake + Flicker */
@@ -217,26 +216,23 @@ footer {
 
 }
 .card {
-  max-width: 250px;
-  max-height: 450px;
+  width: 100%;              /* flexible */
+  max-width: 260px;         /* card width on desktop */
+  min-height: 360px;
 
-  margin: 20 auto 20 auto; /* center inside grid column */
-
+  margin: 0;                /* let flex handle spacing */
   position: relative;
-
   overflow: hidden;
 
   border-radius: 16px;
-
   padding: 20px;
 
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-
   border: 3px solid transparent;
 
   transition: transform 0.3s ease, border-radius 0.3s ease, background-color 0.5s ease;
-
 }
+
 
 .card.active {
 
@@ -372,6 +368,25 @@ footer {
 
 .card:hover .hover-gif {
   opacity: 0.35; /* soft overlay */
+}
+@media (max-width: 600px) {
+
+  .card.active {
+    transform: scale(1.05); /* smaller zoom on mobile */
+  }
+
+  .floating-text {
+    font-size: 1.6rem;
+  }
+
+  .hero {
+    padding: 20px;
+  }
+}
+@media (max-width: 600px) {
+  .hover-gif {
+    opacity: 0.25;
+  }
 }
 
 
