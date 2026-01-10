@@ -29,6 +29,8 @@ body {
   transition: transform 0.3s ease, border-radius 0.3s ease, background-color 0.5s ease;
 }
 
+
+
 .card.active {
   transform: scale(1.15);
   border-radius: 50px;
@@ -43,7 +45,62 @@ footer {
   color: white;
   font-size: 14px;
 }
+.cursor-trail {
+  position: fixed;
+  top: 0;      /* Crucial: start at 0 */
+  left: 0;     /* Crucial: start at 0 */
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: yellow;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.8;
+  /* Remove transition to let JS handle the smoothness */
+  transition: none; 
+    color: #f9a8d4;          /* pastel pink example */
+  background-color: currentColor;  /* use the color */
+    /* Glow */
+  box-shadow: 0 0 8px currentColor;
+  /* Animate the hue rotation */
+  animation: hueShift 4s linear infinite;
+}
 
+
+/* Sparkle */
+.sparkle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.9;
+  background-color: white; /* default, will change dynamically */
+  filter: blur(1px);
+  transform: translate(-50%, -50%);
+  animation: sparkleFly 0.6s forwards;
+}
+
+@keyframes hueShift {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes sparkleFly {
+  0% {
+    opacity: 1;
+    transform: translate(var(--x,0), var(--y,0)) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x,0), var(--y,0)) scale(0.3);
+  }
+}
 
 /* Letter animation */
 .letter-animate span {
@@ -227,6 +284,45 @@ footer {
   opacity: 0.35; /* soft overlay */
 }
 
+.cursor-pic {
+  position: fixed;
+  width: 100px;       /* bigger size */
+  height: 100px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%) scale(1);
+  animation: picDrop 2s forwards; /* slower drop */
+  transition: opacity 1s ease;   /* fade out later */
+ /* For the sprite animation */
+  background-repeat: no-repeat;
+  background-size: 800% 100%; /* 8 frames horizontally */
+  image-rendering: pixelated; /* if pixel art */
+}
+.cursor-pic.sprite {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  pointer-events: none;
+  z-index: 9999;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  transform: translateY(-50%); /* only vertical center if needed */
+}
+@keyframes picDrop {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    transform: translate(-50%, 200px) scale(1); /* falls down and stays at normal size */
+  }
+}
+/* Sprite frames (example: horizontal frames, 4 frames) */
+@keyframes spriteAnim {
+  0%   { background-position: 0 0; }
+  100% { background-position: -1680px 0; } /* last frame */ 
+}
+
+
 /* MOBILE RESPONSIVE */
 @media (max-width: 768px) {
   body {
@@ -249,7 +345,6 @@ footer {
     font-size: 1.15rem;
   }
 }
-
 
 
 
