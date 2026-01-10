@@ -399,9 +399,10 @@ footer {
 
   .hero,
   footer {
-    width: 100%;      /* full width on mobile */
-    padding-left: max(16px, env(safe-area-inset-left));
-    padding-right: max(16px, env(safe-area-inset-right));
+    width: 100w;      /* full width on mobile */
+    max-width: 100%;
+  padding-left: env(safe-area-inset-left, 16px);
+  padding-right: env(safe-area-inset-right, 16px);
     box-sizing: border-box;
   }
 }
