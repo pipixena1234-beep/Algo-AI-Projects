@@ -1,317 +1,355 @@
-let currentAudio = null;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Comic Sans MS", cursive;
+  background: #f0f9ff;
+}
 
-cards.forEach(card => {
+/* Header */
+.hero {
+  text-align: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #ffcc70, #ff9a9e);
+}
 
-  card.addEventListener("mouseenter", () => {
-
-    const audioSrc = card.dataset.audio;
-    const gifSrc = card.dataset.gif;
-    const gif = card.querySelector(".hover-gif");
-
-    // Handle GIF
-    if (gif && gifSrc) {
-      gif.src = gifSrc;
-    }
-
-    // Handle audio
-    if (audioSrc) {
-      currentAudio = new Audio(audioSrc);
-      currentAudio.volume = 0.4;
-      currentAudio.loop = true;
-      currentAudio.play().catch(() => {});
-    }
-
-  });
-
-  card.addEventListener("mouseleave", () => {
-
-    // Stop audio
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-      currentAudio = null;
-    }
-
-  });
-
-});
-let hue = 0;
-const trailCount = 12;
-const trails = [];
-let mouseX = 0;
-let mouseY = 0;
-// Pastel rainbow colors
-const pastelColors = ["#f9a8d4", "#a5f3fc", "#fde68a", "#c7d2fe", "#6ee7b7"];
+/* Layout */
+.container {
+  display: flex;
+  flex-wrap: wrap;          /* allow wrapping */
+  justify-content: center;  /* center cards */
+  gap: 24px;
+  padding: 24px;
+}
+.card {
+  width: 300px;             
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  border: 3px solid transparent;
+  transition: transform 0.3s ease, border-radius 0.3s ease, background-color 0.5s ease;
+}
 
 
-document.addEventListener('DOMContentLoaded', () => {
-  for (let i = 0; i < trailCount; i++) {
-    const dot = document.createElement('div');
-    dot.classList.add('cursor-trail');
-    document.body.appendChild(dot);
-    
-    // Store position data for each dot
-    trails.push({ 
-      el: dot, 
-      x: 0, 
-      y: 0 
-    });
+
+.card.active {
+  transform: scale(1.15);
+  border-radius: 50px;
+
+}
+
+footer {
+  text-align: center;
+  padding: 5px;
+  margin-top: 40px;
+  background: #222;
+  color: white;
+  font-size: 14px;
+}
+.cursor-trail {
+  position: fixed;
+  top: 0;      /* Crucial: start at 0 */
+  left: 0;     /* Crucial: start at 0 */
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: yellow;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.8;
+  /* Remove transition to let JS handle the smoothness */
+  transition: none; 
+    color: #f9a8d4;          /* pastel pink example */
+  background-color: currentColor;  /* use the color */
+    /* Glow */
+  box-shadow: 0 0 8px currentColor;
+  /* Animate the hue rotation */
+  animation: hueShift 4s linear infinite;
+}
+
+
+/* Sparkle */
+.sparkle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.9;
+  background-color: white; /* default, will change dynamically */
+  filter: blur(1px);
+  transform: translate(-50%, -50%);
+  animation: sparkleFly 0.6s forwards;
+}
+
+@keyframes hueShift {
+  0% {
+    filter: hue-rotate(0deg);
   }
-  
-  // Start the animation loop
-  animate();
-});
-
-document.addEventListener('mousemove', e => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-});
-
-function animate() {
-  let x = mouseX;
-  let y = mouseY;
-
-  trails.forEach((trail, index) => {
-    // This creates the "delayed follow" effect
-    // 0.3 is the friction; lower is slower/smoother
-    trail.x += (x - trail.x) * 0.3;
-    trail.y += (y - trail.y) * 0.3;
-
-    // Apply the position
-    trail.el.style.transform = `translate(${trail.x}px, ${trail.y}px)`;
-
-    // Rainbow color (offset per dot)
-     trail.el.style.backgroundColor = `hsl(${hue + index * 20}, 60%, 80%)`;
-    
-    // Fade the trail out toward the end
-    trail.el.style.opacity = (trailCount - index) / trailCount;
-
-     // Spawn sparkles occasionally
-    if (Math.random() < 0.15) { // 15% chance per frame
-      spawnSparkle(trail.x, trail.y);
-    }
-
-    // The next dot follows the current dot for a "snake" effect
-    x = trail.x;
-    y = trail.y;
-  });
-
-  requestAnimationFrame(animate);
-}
-// Sparkle creator
-function spawnSparkle(x, y) {
-  const sparkle = document.createElement('div');
-  sparkle.className = 'sparkle';
-  
-  // Random direction & distance
-  const dx = (Math.random() - 0.5) * 40; // px
-  const dy = (Math.random() - 0.5) * 40; // px
-  sparkle.style.setProperty('--x', dx + 'px');
-  sparkle.style.setProperty('--y', dy + 'px');
-
-  // Random pastel color
-  sparkle.style.backgroundColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
-
-  sparkle.style.left = x + 'px';
-  sparkle.style.top = y + 'px';
-
-  document.body.appendChild(sparkle);
-
-  sparkle.addEventListener('animationend', () => sparkle.remove());
+  100% {
+    filter: hue-rotate(360deg);
+  }
 }
 
-// Array of image URLs to drop
-const dropImages = [
-  'chibi5.png',
-  'chibi2.png',
-  'chibi3.png',
-  'chibi4.png', 
-  // add more URLs as you like
-];
-
-document.addEventListener('click', e => {
-  // --- STATIC IMAGE ---
-  const staticPic = document.createElement('img');
-  staticPic.className = 'cursor-pic';
-  const randomIndex = Math.floor(Math.random() * dropImages.length);
-  staticPic.src = dropImages[randomIndex];
-
-  // Position static image at cursor
-  staticPic.style.left = e.clientX + 'px';
-  staticPic.style.top = e.clientY + 'px';
-  document.body.appendChild(staticPic);
-
-  // Remove after some time
-  setTimeout(() => {
-    staticPic.style.opacity = 0; // fade out
-    staticPic.addEventListener('transitionend', () => staticPic.remove());
-  }, 3000 + Math.random() * 2000); // 3–5 seconds stay
-
-  // Drop animation for static image
-  staticPic.style.animation = 'picDrop 2s forwards';
-
-  // --- SPRITE IMAGE ---
-  const spritePic = document.createElement('div'); // use div for sprite sheet
-  spritePic.className = 'cursor-pic sprite';
-  spritePic.style.backgroundImage = `url('chibi1_eat.png')`;
-
-  // Position sprite slightly to the left of static image
-  const offsetX = -50; // pixels left
-  spritePic.style.left = e.clientX + offsetX + 'px';
-  spritePic.style.top = e.clientY + 'px';
-  document.body.appendChild(spritePic);
-
-  // Wait for drop to finish before starting sprite animation
-  setTimeout(() => {
-  // Freeze position
-  const rect = spritePic.getBoundingClientRect();
-  spritePic.style.left = rect.left + 'px';
-  spritePic.style.top = rect.top + 'px';
-  spritePic.style.transform = 'none';
-    spritePic.style.animation = 'spriteAnim 2.4s steps(16) forwards';
-    
-    // Fade out after sprite animation
-    setTimeout(() => {
-      spritePic.style.transition = 'opacity 1s ease';
-      spritePic.style.opacity = 0;
-      spritePic.addEventListener('transitionend', () => spritePic.remove());
-    }, 800);
-  }, 2000); // match picDrop duration
-});
-
-
-
-
-function flyStars(card, count = 40) {
-
-  const rect = card.getBoundingClientRect();
-
-  const offset = 5; // outside border
-
-  for (let i = 0; i < count; i++) {
-
-    const star = document.createElement("div");
-
-    star.classList.add("star");
-
-    // Randomly decide if inside or outside
-
-    const spawnOutside = Math.random() < 0.5; // 50% chance
-
-    let x, y, dx, dy;
-
-    if (spawnOutside) {
-
-      // Outside card
-
-      const side = Math.floor(Math.random() * 4);
-
-      switch (side) {
-
-        case 0: // top
-
-          x = rect.left + Math.random() * rect.width;
-
-          y = rect.top - offset;
-
-          dx = (Math.random() - 0.5) * 100;
-
-          dy = -Math.random() * 150;
-
-          break;
-
-        case 1: // right
-
-          x = rect.right + offset;
-
-          y = rect.top + Math.random() * rect.height;
-
-          dx = Math.random() * 150;
-
-          dy = (Math.random() - 0.5) * 100;
-
-          break;
-
-        case 2: // bottom
-
-          x = rect.left + Math.random() * rect.width;
-
-          y = rect.bottom + offset;
-
-          dx = (Math.random() - 0.5) * 100;
-
-          dy = Math.random() * 150;
-
-          break;
-
-        case 3: // left
-
-          x = rect.left - offset;
-
-          y = rect.top + Math.random() * rect.height;
-
-          dx = -Math.random() * 150;
-
-          dy = (Math.random() - 0.5) * 100;
-
-          break;
-
-      }
-
-    } else {
-
-      // Inside card
-
-      x = rect.left + Math.random() * rect.width;
-
-      y = rect.top + Math.random() * rect.height;
-
-      dx = (Math.random() - 0.5) * 100;
-
-      dy = (Math.random() - 0.5) * 100;
-
-    }
-
-    star.style.left = x + "px";
-
-    star.style.top = y + "px";
-
-    star.style.setProperty("--x", dx + "px");
-
-    star.style.setProperty("--y", dy + "px");
-
-    // Random light color
-
-    star.style.backgroundColor = getRandomLightColor();
-
-    // Random size
-
-    star.style.width = `${4 + Math.random() * 4}px`;
-
-    star.style.height = `${4 + Math.random() * 4}px`;
-
-    // Append to body to avoid clipping
-
-    document.body.appendChild(star);
-
-    // Remove after animation
-
-    star.addEventListener("animationend", () => star.remove());
-
+@keyframes sparkleFly {
+  0% {
+    opacity: 1;
+    transform: translate(var(--x,0), var(--y,0)) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x,0), var(--y,0)) scale(0.3);
+  }
+}
+
+/* Letter animation */
+.letter-animate span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-15px);
+  font-weight: bold;
+  animation: slideIn 0.35s forwards;
+
+}
+
+
+/* Shake + Flicker */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+.card.shake {
+  animation: shake 0.35s, flicker 0.35s;
+}
+
+
+@keyframes flicker {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes floatUpDown {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}
+.floating-text {
+  display: inline-block;
+  animation: floatUpDown 2.5s ease-in-out infinite;
+}
+
+/* Card title bounce */
+@keyframes titleBounce {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(0.9); }
+  60%  { transform: scale(1.2); }
+  100% { transform: scale(1); }
+
+}
+.card-title-bounce {
+  display: inline-block;
+  animation: titleBounce 0.5s ease forwards;
+
+}
+
+/* Default card border (oval after click) */
+.card.active {
+  border-radius: 50px;
+  transform: scale(1.05);
+}
+
+/* Pseudo-element for animated border */
+.card.active::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 50px; /* match card */
+  border: 3px solid #ff6ec4; /* starting color */
+  box-sizing: border-box;
+  animation: drawBorder 2s linear infinite;
+  pointer-events: none;
+}
+
+/* Keyframes for drawing effect */
+@keyframes drawBorder {
+  0% { border-color: #ff6ec4; }
+  25% { border-color: #7873f5; }
+  50% { border-color: #4ade80; }
+  75% { border-color: #facc15; }
+  100% { border-color: #ff6ec4; }
   }
 
+.
+    #ff6ec4
+  ) 1; /* fill 100% of border */
+  animation: borderMove 2s linear infinite;
+  border-style: solid;
 }
 
-// Helper function for random light color
+@keyframes borderMove {
+  0% { border-image-slice: 1 1 1 1 fill; }
+  50% { border-image-slice: 1 1 1 1 fill; } /* keeps animation continuous */
+  100% { border-image-slice: 1 1 1 1 fill; }
 
-function getRandomLightColor() {
+}
 
-  const r = Math.floor(Math.random() * 127 + 127);
 
-  const g = Math.floor(Math.random() * 127 + 127);
 
-  const b = Math.floor(Math.random() * 127 + 127);
+/* Pseudo-element for animated border */
+.card.active::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 50px;
+  pointer-events: none;
+  z-index: 1; /* behind content */
+  border: 3px solid transparent;
+  box-sizing: border-box;
 
-  return `rgb(${r},${g},${b})`;
+  /* Create moving border line using linear-gradient on border */
+  background: linear-gradient(90deg, #ff6ec4, #7873f5, #4ade80, #facc15, #ff6ec4) no-repeat;
+  background-size: 200% 100%;
+  border-image: none; /* prevent conflicts */
 
+  /* Keep the border area only, leave inner transparent */
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  animation: borderSlide 2s linear infinite;
+}
+
+/* Animate the gradient to simulate the line moving */
+@keyframes borderSlide {
+  0%   { background-position: 0 0; }
+  100% { background-position: 100% 0; }
+}
+
+.star {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: yellow;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0;
+  animation: flyStar 1.5s forwards; /* was 1s → now 1.5s */
+}
+
+@keyframes flyStar {
+  0% {
+    transform: translate(0,0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(0.5);
+    opacity: 0;
+  }
+}
+.hover-gif {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;      /* only partial card on mobile */
+  max-height: 300px; /* optional, to avoid huge images */
+  object-fit: cover;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+  z-index: 0;
+}
+
+/* Bring text above GIF */
+.card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.card:hover .hover-gif {
+  opacity: 0.35; /* soft overlay */
+}
+
+.cursor-pic {
+  position: fixed;
+  width: 100px;       /* bigger size */
+  height: 100px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%) scale(1);
+  animation: picDrop 2s forwards; /* slower drop */
+  transition: opacity 1s ease;   /* fade out later */
+ /* For the sprite animation */
+  background-repeat: no-repeat;
+  background-size: 800% 100%; /* 8 frames horizontally */
+  image-rendering: pixelated; /* if pixel art */
+}
+
+/* The container that moves down the screen */
+.drop-wrapper {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.is-falling {
+  animation: picDrop 2s forwards;
+}
+
+/* The actual sprite box */
+.sprite-inner {
+  width: 100px;
+  height: 100px;
+  background-size: 800% 100%; /* 8 frames */
+  image-rendering: pixelated;
+  /* Start eating immediately and never stop */
+  animation: spriteAnim 1.2s steps(8) infinite;
+}
+@keyframes picDrop {
+  from { transform: translate(-50%, -50%); }
+  to   { transform: translate(-50%, 200px); }
+}
+
+/* The Sprite Animation */
+@keyframes spriteAnim {
+  from { background-position: 0 0; }
+  to   { background-position: -800px 0; }
+}
+
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  body {
+    font-size: 18px; /* bigger text */
+  }
+  .container {
+    flex-direction: column; /* stack cards vertically */
+    align-items: center;
+    padding: 16px;
+  }
+  .card {
+    width: 100%;      /* full width */
+    max-width: 220px; /* don't stretch too much */
+    font-size: 1.1rem;
+  }
+  .card h2 {
+    font-size: 1.6rem;
+  }
+  .card p {
+    font-size: 1.15rem;
+  }
 }
