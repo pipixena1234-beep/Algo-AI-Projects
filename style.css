@@ -298,28 +298,35 @@ footer {
   background-size: 800% 100%; /* 8 frames horizontally */
   image-rendering: pixelated; /* if pixel art */
 }
-.cursor-pic.sprite {
+/* The container that moves down the screen */
+.drop-wrapper {
   position: fixed;
-  width: 100px;
-  height: 100px;
   pointer-events: none;
   z-index: 9999;
-  background-repeat: no-repeat;
+}
+
+.is-falling {
+  animation: picDrop 2s forwards;
+}
+
+/* The actual sprite box */
+.sprite-inner {
+  width: 100px;
+  height: 100px;
+  background-size: 800% 100%; /* 8 frames */
   image-rendering: pixelated;
-  transform: translateY(-50%); /* only vertical center if needed */
+  /* Start eating immediately and never stop */
+  animation: spriteAnim 1.2s steps(8) infinite;
 }
 @keyframes picDrop {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    transform: translate(-50%, 200px) scale(1); /* falls down and stays at normal size */
-  }
+  from { transform: translate(-50%, -50%); }
+  to   { transform: translate(-50%, 200px); }
 }
-/* Sprite frames (example: horizontal frames, 4 frames) */
+
+/* The Sprite Animation */
 @keyframes spriteAnim {
-  0%   { background-position: 0 0; }
-  100% { background-position: -1680px 0; } /* last frame */ 
+  from { background-position: 0 0; }
+  to   { background-position: -800px 0; }
 }
 
 
@@ -345,18 +352,4 @@ footer {
     font-size: 1.15rem;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
